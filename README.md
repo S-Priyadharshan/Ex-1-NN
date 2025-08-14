@@ -37,12 +37,69 @@ STEP 5:Normalizing the data<BR>
 STEP 6:Splitting the data into test and train<BR>
 
 ##  PROGRAM:
-TYPE YOUR CODE HERE
+
+```python
+import pandas as pd
+import io
+from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.model_selection import train_test_split
+
+#Read the dataset from drive
+df=pd.read_csv("Churn_Modelling.csv")
+
+# Checking Data
+df.head()
+df.tail()
+df.columns
+
+
+# Finding Missing 
+df.isnull().sum()
+
+#Handling Missing values
+df.fillna(method='ffill',inplace=True)
+
+#Check for Duplicates
+df.duplicated()
+
+#Detect Outliers
+df.describe()
+
+#Normalize the dataset
+data = df.drop(['Surname', 'Geography','Gender'], axis=1)
+scaler=MinMaxScaler()
+df1=pd.DataFrame(scaler.fit_transform(data))
+print(df1)
+
+#split the dataset into input and output
+X=df1.iloc[:,:-1].values
+y=df.iloc[:,-1].values
+print(X)
+print(y)
+
+#splitting the data for training & Testing
+x_train,x_test,y_train,y_test=train_test_split(X,y,test_size=0.3)
+
+#Print the training data and testing data
+print("X_train")
+print(x_train)
+print("Length of X_train",len(x_train))
+print("X_test")
+print(x_test)
+print("Length of X_test",len(x_test))
+```
 
 
 ## OUTPUT:
-SHOW YOUR OUTPUT HERE
-
+![alt text](image.png)
+![alt text](image-1.png)
+![alt text](image-2.png)
+![alt text](image-3.png)
+![alt text](image-4.png)
+![alt text](image-5.png)
+![alt text](image-6.png)
+![alt text](image-7.png)
 
 ## RESULT:
 Thus, Implementation of Data Preprocessing is done in python  using a data set downloaded from Kaggle.
